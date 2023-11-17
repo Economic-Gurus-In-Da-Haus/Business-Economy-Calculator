@@ -1,0 +1,10 @@
+/* 
+This is a base file for all common css elements 
+
+In here we will have variables like dark-base or -light-base, 
+it allows for split css files BUT with common attributes without constant conflicts when pushing or pulling
+*/
+
+body {
+    background-color: red;
+}
