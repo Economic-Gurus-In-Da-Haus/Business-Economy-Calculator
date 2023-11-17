@@ -1,7 +1,6 @@
 import { EconomyObject } from "../scripts/economicsClasses.js"
 
 const testYear = new EconomyObject();
-console.log(testYear);
 
 function reload() {
     const sectionElement = document.querySelector("section");
@@ -18,27 +17,30 @@ function reload() {
         + testYear.longtermDebt.value
         + testYear.shorttermDebt.value;
 
+    Object.entries(testYear).forEach(entry => {
+        const [key, value] = entry;
 
-    for (const key in testYear) {
-        const inputEl = document.createElement("input");
-        const labelEl = document.createElement("label");
-        sectionElement.append(inputEl);
-        sectionElement.append(labelEl);
+        const inputElement = document.createElement("input");
+        const labelElement = document.createElement("label");
+        sectionElement.append(inputElement);
+        sectionElement.append(labelElement);
 
-        inputEl.setAttribute("name", key);
-        inputEl.setAttribute("type", "number");
-        inputEl.setAttribute("value", testYear[key].value);
+
+        inputElement.setAttribute("name", key);
+        inputElement.setAttribute("type", "number");
+        inputElement.setAttribute("value", value.value);
+
         if (key.includes("Sum")) {
-            inputEl.setAttribute("disabled", "");
+            inputElement.setAttribute("disabled", "");
         } else {
-            inputEl.addEventListener("change", (event) => {
+            inputElement.addEventListener("change", (event) => {
                 testYear[event.target.name].value = Number(event.target.value);
                 reload();
             });
         }
 
-        labelEl.innerText = testYear[key].name;
-    }
+        labelElement.innerText = value.name;
+    });
 }
 
 reload();
