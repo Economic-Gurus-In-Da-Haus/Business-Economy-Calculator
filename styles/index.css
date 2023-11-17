@@ -19,3 +19,8 @@ section h1 {
 section input[type=number] {
     text-align: right;
 }
+
+section input[disabled] {
+    /*Dark gray? current: bisque with 0.35 alpha*/
+    background-color: rgba(255, 228, 196, 0.35);
+}
