@@ -1,11 +1,11 @@
-export class EonomyObject {
+export class EconomyObject {
     // "first" part
-    propertyAssets = { value: 100, name: "Anläggningstillgångar" };
+    propertyAssets = { name: "Anläggningstillgångar", value: 100 };
     revenueAssets = { name: "Omsättningstillgångar", value: 100 };
-    assetsTotal = { name: "summa-tillgångar", value: 0 };
+    assetsSum = { name: "Summa av alla tillgångar", value: 0 };
     // "second" part
-    ownCapital = { name: "eget-kapital", value: 1000 };
-    longtermDebt = { name: "långsiktiga-skulder", value: -200 };
-    shorttermDebt = { name: "kortfristiga-skulder", value: -100 };
-    debtSum = { name: "summa-skulder-kapital", value: 0 };
+    ownCapital = { name: "Eget kapital", value: 1000 };
+    longtermDebt = { name: "Långsiktiga skulder", value: -200 };
+    shorttermDebt = { name: "Kortfristiga skulder", value: -100 };
+    debtSum = { name: "Summa; skulder och kapital", value: 0 };
 }

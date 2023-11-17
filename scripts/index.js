@@ -1,40 +1,43 @@
-let balance = {
-    "anläggnings-tillgångar": { value: 100 },
-    "omsättnings-tillgångar": { value: 100 },
-    "summa-tillgångar": { value: 0 },
-    "eget-kapital": { value: 1000 },
-    "långsiktiga-skulder": { value: -200 },
-    "kortfristiga-skulder": { value: -100 },
-    "summa-skulder-kapital": { value: 0 },
-};
+import { EconomyObject } from "../scripts/economicsClasses.js"
 
-let sectionEl = document.querySelector("section");
+const testYear = new EconomyObject();
+console.log(testYear);
 
 function reload() {
-    sectionEl.innerHTML = "<h1>Balansräkning</h1>";
-    
-    balance["summa-tillgångar"].value = balance["anläggnings-tillgångar"].value + balance["omsättnings-tillgångar"].value;
-    balance["summa-skulder-kapital"].value = balance["eget-kapital"].value + balance["långsiktiga-skulder"].value + balance["kortfristiga-skulder"].value;
-    
-    for (let key in balance) {
-        let inputEl = document.createElement("input");
-        let labelEl = document.createElement("label");
-        sectionEl.append(inputEl);
-        sectionEl.append(labelEl);
+    const sectionElement = document.querySelector("section");
+    sectionElement.innerHTML = "<h1>Balansräkning</h1>";
 
-        inputEl.setAttribute("id", key);
+    // Assets total/sum = property assets + revenue assets
+    testYear.assetsSum.value =
+        testYear.propertyAssets.value
+        + testYear.revenueAssets.value;
+
+    // Debt total/sum = own capital + long term debt + short term debt
+    testYear.debtSum.value =
+        testYear.ownCapital.value
+        + testYear.longtermDebt.value
+        + testYear.shorttermDebt.value;
+
+
+    for (const key in testYear) {
+        const inputEl = document.createElement("input");
+        const labelEl = document.createElement("label");
+        sectionElement.append(inputEl);
+        sectionElement.append(labelEl);
+
+        inputEl.setAttribute("name", key);
         inputEl.setAttribute("type", "number");
-        inputEl.setAttribute("value", balance[key].value);
-        if (key.includes("summa")) {
+        inputEl.setAttribute("value", testYear[key].value);
+        if (key.includes("Sum")) {
             inputEl.setAttribute("disabled", "");
         } else {
             inputEl.addEventListener("change", (event) => {
-                balance[event.target.id].value = Number(event.target.value);
+                testYear[event.target.name].value = Number(event.target.value);
                 reload();
             });
         }
 
-        labelEl.innerText = key;
+        labelEl.innerText = testYear[key].name;
     }
 }
 
