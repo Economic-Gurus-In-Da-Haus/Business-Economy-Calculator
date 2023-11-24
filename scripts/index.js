@@ -1,68 +1,59 @@
-import { BalanceObject, ResultObject } from "../scripts/economicsClasses.js"
+import { BalanceObject, ResultObject, generateNewBalanceObject } from "../scripts/economicsClasses.js"
 
 const allYears = [];
 
 allYears.push(new BalanceObject());
-allYears.push(new ResultObject());
 
-function reloadPage() {
-    allYears.forEach(year => {
-        if (Object.getPrototypeOf(year) == BalanceObject.prototype) {
-            console.log("test");
-        } else {
-            console.log("test2");
-        }
-    });
-}
-
-reloadPage();
-
-const testYear = JSON.parse(localStorage.getItem("tempBalance")) || new BalanceObject();
-const testResult = JSON.parse(localStorage.getItem("tempResult")) || new ResultObject();
+//const testYear = JSON.parse(localStorage.getItem("tempBalance")) || new BalanceObject();
+const testResult = new ResultObject();
 
 function reloadBalance() {
-    const sectionElement = document.querySelector("section#balance");
-    sectionElement.innerHTML = "<h1>Balansräkning år 0</h1>";
+    const parentElement = document.querySelector("section#balances");
+    parentElement.innerHTML = "";
 
-    // Assets total/sum = property assets + revenue assets
-    testYear.assetsSum.value =
-        testYear.propertyAssets.value
-        + testYear.revenueAssets.value;
+    allYears.forEach((obj, index) => {
+        const sectionElement = document.createElement("section");
+        parentElement.append(sectionElement);
+        sectionElement.innerHTML = "<h1>Balansräkning år " + index + "</h1>";
 
-    // Debt total/sum = own capital + long term debt + short term debt
-    testYear.debtSum.value =
-        testYear.ownCapital.value
-        + testYear.longtermDebt.value
-        + testYear.shorttermDebt.value;
+        // Assets total/sum = property assets + revenue assets
+        obj.assetsSum.value =
+            obj.propertyAssets.value
+            + obj.revenueAssets.value;
 
-    Object.entries(testYear).forEach(entry => {
-        const [key, value] = entry;
+        // Debt total/sum = own capital + long term debt + short term debt
+        obj.debtSum.value =
+            obj.ownCapital.value
+            + obj.longtermDebt.value
+            + obj.shorttermDebt.value;
 
-        const inputElement = document.createElement("input");
-        const labelElement = document.createElement("label");
-        sectionElement.append(inputElement);
-        sectionElement.append(labelElement);
+        Object.entries(obj).forEach(entry => {
+            const [key, value] = entry;
 
-        inputElement.setAttribute("id", key);
-        inputElement.setAttribute("name", key);
-        inputElement.setAttribute("type", "number");
-        inputElement.setAttribute("value", value.value);
+            const inputElement = document.createElement("input");
+            const labelElement = document.createElement("label");
+            sectionElement.append(inputElement);
+            sectionElement.append(labelElement);
 
-        if (key.includes("Sum")) {
-            inputElement.setAttribute("disabled", "");
-            labelElement.classList.add("disabled");
-        } else {
-            inputElement.addEventListener("change", (event) => {
-                testYear[event.target.name].value = Number(event.target.value);
-                reloadBalance();
-            });
-        }
+            inputElement.setAttribute("name", key);
+            inputElement.setAttribute("type", "number");
+            inputElement.setAttribute("value", value.value);
 
-        labelElement.setAttribute("for", key);
-        labelElement.innerText = value.name;
+            if (key.includes("Sum") || allYears.length > 1) {
+                inputElement.setAttribute("disabled", "");
+                labelElement.classList.add("disabled");
+            } else {
+                inputElement.addEventListener("change", (event) => {
+                    obj[event.target.name].value = Number(event.target.value);
+                    reloadBalance();
+                });
+            }
+
+            labelElement.innerText = value.name;
+        });
+
+        //localStorage.setItem("tempBalance", JSON.stringify(obj));
     });
-
-    localStorage.setItem("tempBalance", JSON.stringify(testYear));
 }
 
 function reloadResult() {
@@ -120,7 +111,12 @@ function reloadResult() {
     const buttonElement = document.createElement("button");
     sectionElement.append(buttonElement);
     buttonElement.innerText = "Klicka"
-    localStorage.setItem("tempResult", JSON.stringify(testResult));
+    buttonElement.onclick = () => {
+        allYears.push(generateNewBalanceObject(allYears[allYears.length - 1], testResult));
+        reloadBalance();
+    };
+
+    //localStorage.setItem("tempResult", JSON.stringify(testResult));
 }
 
 reloadBalance();

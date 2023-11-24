@@ -33,14 +33,15 @@ export class ResultObject {
 export function generateNewBalanceObject(balanceObj, resultObj) {
     const retObject = new BalanceObject();
 
-    retObject.propertyAssets = resultObj.propertyAssets + balanceObj.propertyAssets;
-    retObject.revenueAssets = resultObj.revenueAssets + balanceObj.revenueAssets;
-    retObject.assetsSum = resultObj.assetsSum + balanceObj.assetsSum;
+    //MIKAEL GÖR MATTE HÄR
+    retObject.propertyAssets.value = Math.random() * 100; // resultObj.propertyAssets.value + balanceObj.propertyAssets.value;
+    retObject.revenueAssets.value = Math.random() * 100; // resultObj.revenueAssets.value + balanceObj.revenueAssets.value;
+    retObject.assetsSum.value = Math.random() * 100; // resultObj.assetsSum.value + balanceObj.assetsSum.value;
 
-    retObject.ownCapital = resultObj.ownCapital + balanceObj.ownCapital;
-    retObject.longtermDebt = resultObj.longtermDebt + balanceObj.longtermDebt;
-    retObject.shorttermDebt = resultObj.shorttermDebt + balanceObj.shorttermDebt;
-    retObject.debtSum = resultObj.debtSum + balanceObj.debtSum;
+    retObject.ownCapital.value = Math.random() * 100; // resultObj.ownCapital.value + balanceObj.ownCapital.value;
+    retObject.longtermDebt.value = Math.random() * 100; // resultObj.longtermDebt.value + balanceObj.longtermDebt.value;
+    retObject.shorttermDebt.value = Math.random() * 100; // resultObj.shorttermDebt.value + balanceObj.shorttermDebt.value;
+    retObject.debtSum.value = Math.random() * 100; // resultObj.debtSum.value + balanceObj.debtSum.value;
 
     return retObject;
 }
