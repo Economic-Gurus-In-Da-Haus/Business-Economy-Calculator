@@ -8,6 +8,11 @@ export class BalanceObject {
     longtermDebt = { name: "Långsiktiga skulder", value: -200 };
     shorttermDebt = { name: "Kortfristiga skulder", value: -100 };
     debtSum = { name: "Summa; skulder och kapital", value: 0 };
+    
+    rentabilityOwnSum = { name: "Rentabilitet på eget kapital", value: 0 };
+    rentabilitySysselSum = { name: "Rentabilitet på sysselsatt kapital", value: 0 };
+    soliditySum = { name: "Soliditet", value: 0 };
+    
 };
 
 export class ResultObject {
@@ -41,6 +46,10 @@ export function generateNewBalanceObject(balanceObj, resultObj) {
     retObject.ownCapital.value = balanceObj.ownCapital.value + resultObj.yearSum.value + resultObj.newIssue.value - resultObj.allotment.value;
     retObject.longtermDebt.value = balanceObj.longtermDebt.value + resultObj.newLoans.value - resultObj.amortization.value; 
     retObject.shorttermDebt.value = 0;
+
+    retObject.rentabilityOwnSum.value = resultObj.yearSum.value / balanceObj.ownCapital.value;
+    retObject.rentabilitySysselSum.value = resultObj.yearSum.value / balanceObj.revenueAssets.value;
+    retObject.soliditySum.value = balanceObj.ownCapital.value / balanceObj.debtSum.value;
 
     return retObject;
 }
