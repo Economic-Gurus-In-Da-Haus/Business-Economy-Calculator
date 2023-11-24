@@ -5,13 +5,20 @@ In here we will have variables like dark-base or -light-base,
 it allows for split css files BUT with common attributes without constant conflicts when pushing or pulling
 */
 
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,500;1,400&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 :root {
-    --color-background: rgb(67, 74, 94);
-    --color-section: rgb(76, 86, 111);
+    --color-dark1: #1e2124;
+    --color-dark2: #282b30;
+    --color-dark3: #36393e;
+    --color-dark4: #424549;
+    --color-accent1: #7289da;
+    --color-accent2: rgb(156, 172, 230);
 }
