@@ -1,7 +1,7 @@
 export class BalanceObject {
     // "first" part
     propertyAssets = { name: "Anläggningstillgångar", value: 100 };
-    revenueAssets = { name: "Omsättningstillgångar", value: 100 };
+    revenueAssets = { name: "Omsättningstillgångar", value: 100 }; //Current Assets
     assetsSum = { name: "Summa av alla tillgångar", value: 0 };
     // "second" part
     ownCapital = { name: "Eget kapital", value: 1000 };
@@ -26,22 +26,21 @@ export class ResultObject {
 
     investments = { name: "Investeringar", value: 0 };
     allotment = { name: "Utdelning till ägare", value: 0 };
-    newIssue = { name: "Nyemission", value: 0 };
+    newIssue = { name: "Nyemission", value: 0 }; //Equity issuance
     newLoans = { name: "Nya banklån", value: 0 };
+    amortization = { name: "Amorteringar" , value: 0};
 };
 
 export function generateNewBalanceObject(balanceObj, resultObj) {
     const retObject = new BalanceObject();
 
     //MIKAEL GÖR MATTE HÄR
-    retObject.propertyAssets.value = Math.random() * 100; // resultObj.propertyAssets.value + balanceObj.propertyAssets.value;
-    retObject.revenueAssets.value = Math.random() * 100; // resultObj.revenueAssets.value + balanceObj.revenueAssets.value;
-    retObject.assetsSum.value = Math.random() * 100; // resultObj.assetsSum.value + balanceObj.assetsSum.value;
+    retObject.propertyAssets.value = balanceObj.propertyAssets.value + resultObj.writeOffs.value + resultObj.investments.value;
+    retObject.revenueAssets.value = resultObj.customerFordrings.value + balanceObj.revenueAssets.value - resultObj.amortization.value; 
 
-    retObject.ownCapital.value = Math.random() * 100; // resultObj.ownCapital.value + balanceObj.ownCapital.value;
-    retObject.longtermDebt.value = Math.random() * 100; // resultObj.longtermDebt.value + balanceObj.longtermDebt.value;
-    retObject.shorttermDebt.value = Math.random() * 100; // resultObj.shorttermDebt.value + balanceObj.shorttermDebt.value;
-    retObject.debtSum.value = Math.random() * 100; // resultObj.debtSum.value + balanceObj.debtSum.value;
+    retObject.ownCapital.value = balanceObj.ownCapital.value + resultObj.yearSum.value + resultObj.newIssue.value - resultObj.allotment.value;
+    retObject.longtermDebt.value = balanceObj.longtermDebt.value + resultObj.newLoans.value - resultObj.amortization.value; 
+    retObject.shorttermDebt.value = 0;
 
     return retObject;
 }
