@@ -5,6 +5,13 @@ In here we will have variables like dark-base or -light-base,
 it allows for split css files BUT with common attributes without constant conflicts when pushing or pulling
 */
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 :root {
     --color-background: rgb(67, 74, 94);
+    --color-section: rgb(76, 86, 111);
 }
