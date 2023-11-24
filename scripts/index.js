@@ -17,8 +17,8 @@ function reloadPage() {
 
 reloadPage();
 
-const testYear = new BalanceObject();
-const testResult = new ResultObject();
+const testYear = JSON.parse(localStorage.getItem("tempBalance")) || new BalanceObject();
+const testResult = JSON.parse(localStorage.getItem("tempResult")) || new ResultObject();
 
 function reloadBalance() {
     const sectionElement = document.querySelector("section#balance");
@@ -61,6 +61,8 @@ function reloadBalance() {
         labelElement.setAttribute("for", key);
         labelElement.innerText = value.name;
     });
+
+    localStorage.setItem("tempBalance", JSON.stringify(testYear));
 }
 
 function reloadResult() {
@@ -118,6 +120,7 @@ function reloadResult() {
     const buttonElement = document.createElement("button");
     sectionElement.append(buttonElement);
     buttonElement.innerText = "Klicka"
+    localStorage.setItem("tempResult", JSON.stringify(testResult));
 }
 
 reloadBalance();
