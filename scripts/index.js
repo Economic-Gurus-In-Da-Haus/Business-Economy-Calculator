@@ -61,6 +61,8 @@ function reloadBalance() {
         labelElement.setAttribute("for", key);
         labelElement.innerText = value.name;
     });
+
+    localStorage.setItem("tempBalance", JSON.stringify(testYear));
 }
 
 function reloadResult() {
@@ -118,6 +120,7 @@ function reloadResult() {
     const buttonElement = document.createElement("button");
     sectionElement.append(buttonElement);
     buttonElement.innerText = "Klicka"
+    localStorage.setItem("tempResult", JSON.stringify(testResult));
 }
 
 reloadBalance();
