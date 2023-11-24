@@ -14,7 +14,7 @@ export class ResultObject {
     salesPayments = { name: "Försäljningsinbetalningar", value: 0 };
     customerFordrings = { name: "Kundfordringar", value: 0 };
     salesSum = { name: "Totala försäljningsintäkter", value: 0 };
-    
+
     costSoldProducts = { name: "Kostnad sålda varor", value: 0 };
     grossSum = { name: "Bruttoresultat", value: 0 };
 
@@ -29,3 +29,19 @@ export class ResultObject {
     newIssue = { name: "Nyemission", value: 0 };
     newLoans = { name: "Nya banklån", value: 0 };
 };
+
+export function generateNewBalanceObject(balanceObj, resultObj) {
+    const retObject = new BalanceObject();
+
+    //MIKAEL GÖR MATTE HÄR
+    retObject.propertyAssets.value = Math.random() * 100; // resultObj.propertyAssets.value + balanceObj.propertyAssets.value;
+    retObject.revenueAssets.value = Math.random() * 100; // resultObj.revenueAssets.value + balanceObj.revenueAssets.value;
+    retObject.assetsSum.value = Math.random() * 100; // resultObj.assetsSum.value + balanceObj.assetsSum.value;
+
+    retObject.ownCapital.value = Math.random() * 100; // resultObj.ownCapital.value + balanceObj.ownCapital.value;
+    retObject.longtermDebt.value = Math.random() * 100; // resultObj.longtermDebt.value + balanceObj.longtermDebt.value;
+    retObject.shorttermDebt.value = Math.random() * 100; // resultObj.shorttermDebt.value + balanceObj.shorttermDebt.value;
+    retObject.debtSum.value = Math.random() * 100; // resultObj.debtSum.value + balanceObj.debtSum.value;
+
+    return retObject;
+}
