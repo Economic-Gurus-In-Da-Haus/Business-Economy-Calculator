@@ -1,10 +1,11 @@
-import { EconomyObject } from "../scripts/economicsClasses.js"
+import { BalanceObject, ResultObject } from "../scripts/economicsClasses.js"
 
-const testYear = new EconomyObject();
+const testYear = new BalanceObject();
+const testResult = new ResultObject();
 
-function reload() {
-    const sectionElement = document.querySelector("section");
-    sectionElement.innerHTML = "<h1>Balansräkning</h1>";
+function reloadBalance() {
+    const sectionElement = document.querySelector("section#balance");
+    sectionElement.innerHTML = "<h1>Balansräkning år 0</h1>";
 
     // Assets total/sum = property assets + revenue assets
     testYear.assetsSum.value =
@@ -25,22 +26,76 @@ function reload() {
         sectionElement.append(inputElement);
         sectionElement.append(labelElement);
 
-
+        inputElement.setAttribute("id", key);
         inputElement.setAttribute("name", key);
         inputElement.setAttribute("type", "number");
         inputElement.setAttribute("value", value.value);
-
+        
         if (key.includes("Sum")) {
             inputElement.setAttribute("disabled", "");
         } else {
             inputElement.addEventListener("change", (event) => {
                 testYear[event.target.name].value = Number(event.target.value);
-                reload();
+                reloadBalance();
             });
         }
-
+        
+        labelElement.setAttribute("for", key);
         labelElement.innerText = value.name;
     });
 }
 
-reload();
+function reloadResult() {
+    const sectionElement = document.querySelector("section#result");
+    sectionElement.innerHTML = "<h1>Resultaträkning år 1</h1>";
+    
+    testResult.salesSum.value =
+    testResult.salesPayments.value
+    + testResult.customerFordrings.value;
+    
+    testResult.grossSum.value =
+    testResult.salesSum.value
+    + testResult.costSoldProducts.value;
+    
+    testResult.yearSum.value =
+    testResult.grossSum.value
+    + testResult.writeOffs.value
+    + testResult.interestFinancialIncome.value
+    + testResult.interestFinancialCosts.value
+    + testResult.taxCosts.value
+    
+    Object.entries(testResult).forEach(entry => {
+        const [key, value] = entry;
+        
+        if (key == "investments") {
+            const h2El = document.createElement("h2");
+            h2El.innerText = "Ekonomiska händelser";
+            sectionElement.append(h2El);
+        }
+        
+        const inputElement = document.createElement("input");
+        const labelElement = document.createElement("label");
+        sectionElement.append(inputElement);
+        sectionElement.append(labelElement);
+        
+        inputElement.setAttribute("id", key);
+        inputElement.setAttribute("name", key);
+        inputElement.setAttribute("type", "number");
+        inputElement.setAttribute("value", value.value);
+        
+        if (key.includes("Sum")) {
+            inputElement.setAttribute("disabled", "");
+        } else {
+            inputElement.addEventListener("change", (event) => {
+                testResult[event.target.name].value = Number(event.target.value);
+                reloadResult();
+            });
+        }
+        
+        labelElement.setAttribute("for", key);
+        labelElement.innerText = value.name;
+    });
+}
+
+reloadBalance();
+reloadResult();
