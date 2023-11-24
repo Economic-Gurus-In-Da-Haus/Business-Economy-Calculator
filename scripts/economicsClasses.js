@@ -29,3 +29,7 @@ export class ResultObject {
     newIssue = { name: "Nyemission", value: 0 };
     newLoans = { name: "Nya banklån", value: 0 };
 };
+
+export function generateNewBalanceObject(balanceObj, resultObj) {
+        
+}
