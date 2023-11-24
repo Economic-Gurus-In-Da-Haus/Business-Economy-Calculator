@@ -14,7 +14,7 @@ export class ResultObject {
     salesPayments = { name: "Försäljningsinbetalningar", value: 0 };
     customerFordrings = { name: "Kundfordringar", value: 0 };
     salesSum = { name: "Totala försäljningsintäkter", value: 0 };
-    
+
     costSoldProducts = { name: "Kostnad sålda varor", value: 0 };
     grossSum = { name: "Bruttoresultat", value: 0 };
 
@@ -31,5 +31,16 @@ export class ResultObject {
 };
 
 export function generateNewBalanceObject(balanceObj, resultObj) {
-        
+    const retObject = new BalanceObject();
+
+    retObject.propertyAssets = resultObj.propertyAssets + balanceObj.propertyAssets;
+    retObject.revenueAssets = resultObj.revenueAssets + balanceObj.revenueAssets;
+    retObject.assetsSum = resultObj.assetsSum + balanceObj.assetsSum;
+
+    retObject.ownCapital = resultObj.ownCapital + balanceObj.ownCapital;
+    retObject.longtermDebt = resultObj.longtermDebt + balanceObj.longtermDebt;
+    retObject.shorttermDebt = resultObj.shorttermDebt + balanceObj.shorttermDebt;
+    retObject.debtSum = resultObj.debtSum + balanceObj.debtSum;
+
+    return retObject;
 }
