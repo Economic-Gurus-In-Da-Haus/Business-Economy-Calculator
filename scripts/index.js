@@ -33,6 +33,7 @@ function reloadBalance() {
         
         if (key.includes("Sum")) {
             inputElement.setAttribute("disabled", "");
+            labelElement.classList.add("disabled");
         } else {
             inputElement.addEventListener("change", (event) => {
                 testYear[event.target.name].value = Number(event.target.value);
@@ -85,6 +86,7 @@ function reloadResult() {
         
         if (key.includes("Sum")) {
             inputElement.setAttribute("disabled", "");
+            labelElement.classList.add("disabled");
         } else {
             inputElement.addEventListener("change", (event) => {
                 testResult[event.target.name].value = Number(event.target.value);
@@ -95,6 +97,10 @@ function reloadResult() {
         labelElement.setAttribute("for", key);
         labelElement.innerText = value.name;
     });
+
+    const buttonElement = document.createElement("button");
+    sectionElement.append(buttonElement);
+    buttonElement.innerText = "Klicka"
 }
 
 reloadBalance();
