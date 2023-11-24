@@ -1,0 +1,21 @@
+name: Lighthouse Check
+on: [pull_request]
+
+jobs:
+  lighthouse-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - run: mkdir /tmp/artifacts
+    - name: Run Lighthouse
+      uses: foo-software/lighthouse-check-action@master
+      with:
+        outputDirectory: /tmp/artifacts
+        urls: 'https://economic-gurus-in-da-haus.github.io/Business-Economy-Calculator/pages/'
+    - name: Upload artifacts
+      uses: actions/upload-artifact@master
+      with:
+        name: Lighthouse reports
+        path: /tmp/artifacts
+  # You may pin to the exact commit or the version.
+  # uses: foo-software/lighthouse-check-action@f78f162ef0ecd48a18244c427959f0b79ef4d553
